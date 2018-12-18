@@ -2,22 +2,33 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class SignupForm extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = { name, email, password, country };
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: "",
+            email: "",
+            password: "",
+            country: ""
+        };
 
-    //     this.handleChange = this.handleChange.bind(this);
-    //     this.handleSubmit = this.handleSubmit.bind(this);
-    // }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-    // handleChange(event) {
-    //     this.setState({ value: event.target.value });
-    // }
+    handleChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
 
-    // handleSubmit(event) {
-    //     console.log(this.state);
-    //     event.preventDefault();
-    // }
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleSubmit(event) {
+        console.log(this.state);
+        event.preventDefault();
+    }
 
     render() {
         return (
@@ -32,11 +43,7 @@ class SignupForm extends Component {
                 >
                     <div className="box is-clear-fix">
                         <h1 className="title">Sign Up!</h1>
-                        <form
-                            action="http://localhost:5000/api/signup"
-                            method="POST"
-                            target="_blank"
-                        >
+                        <form onSubmit={this.handleSubmit}>
                             <div className="field">
                                 <label>Name</label>
                                 <div className="control">
@@ -45,6 +52,7 @@ class SignupForm extends Component {
                                         className="input"
                                         name="name"
                                         placeholder="Name"
+                                        onChange={this.handleChange}
                                     />
                                 </div>
                             </div>
@@ -56,6 +64,7 @@ class SignupForm extends Component {
                                         className="input"
                                         name="email"
                                         placeholder="Email"
+                                        onChange={this.handleChange}
                                     />
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-envelope" />
@@ -70,6 +79,7 @@ class SignupForm extends Component {
                                         className="input"
                                         type="password"
                                         placeholder="Password"
+                                        onChange={this.handleChange}
                                     />
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-lock" />
@@ -80,7 +90,10 @@ class SignupForm extends Component {
                                 <label>Country</label>
                                 <p className="control has-icons-left">
                                     <span className="select">
-                                        <select name="country">
+                                        <select
+                                            onChange={this.handleChange}
+                                            name="country"
+                                        >
                                             <option>Select</option>
                                             <option value="AF">
                                                 Afghanistan
